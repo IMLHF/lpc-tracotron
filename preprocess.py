@@ -33,8 +33,8 @@ def main():
     parser.add_argument('--output', default='training')
     parser.add_argument('--dataset', default='ljspeech',
                         choices=['blizzard', 'ljspeech', 'thchs30'])
-    # parser.add_argument('--num_workers', type=int, default=cpu_count())
-    parser.add_argument('--num_workers', type=int, default=4)
+    parser.add_argument('--num_workers', type=int, default=cpu_count())
+    # parser.add_argument('--num_workers', type=int, default=4)
     args = parser.parse_args()
     if args.dataset == 'ljspeech':
         preprocess_ljspeech(args)
