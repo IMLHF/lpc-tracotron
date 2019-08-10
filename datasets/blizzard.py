@@ -26,7 +26,7 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
     with open(os.path.join(in_dir, book, 'sentence_index.txt')) as f:
       for line in f:
         parts = line.strip().split('\t')
-        if line[0] is not '#' and len(parts) == 8 and float(parts[3]) > _min_confidence:
+        if line[0] != '#' and len(parts) == 8 and float(parts[3]) > _min_confidence:
           wav_path = os.path.join(in_dir, book, 'wav', '%s.wav' % parts[0])
           labels_path = os.path.join(in_dir, book, 'lab', '%s.lab' % parts[0])
           text = parts[5]
