@@ -1,0 +1,7 @@
+__pycache__
+*.wav
+*.npy
+.vscode
+logs-tacotron
+/LJSpeech-1.1/meta*
+/pretrained
