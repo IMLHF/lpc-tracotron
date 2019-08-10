@@ -1,7 +1,7 @@
 ## Tacotron-LPC
 
 ### 0. Requirements 
-* [pylpcnet](http://120.131.1.206:8090/tts/pylpcnet)
+* [pylpcnet](https://github.com/IMLHF/pylpcnet)
 
 ### 1.After git clone(if uing proxyhop)
 ```
