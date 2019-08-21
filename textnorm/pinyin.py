@@ -57,4 +57,3 @@ def get_pinyin(text, std=True, pb=False):
         pinyins.append(py)
     pinyin = pinyins
     return pinyin
-
