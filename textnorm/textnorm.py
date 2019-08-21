@@ -330,15 +330,15 @@ def procChnAlphaNumber(sr):
     orisr=sr
     for ch in chnalpupper:
         if ch in sr:
-            sr=re.sub(ch, unichr(65+ord(ch)-65313), sr) # 65 - 'A', 65313 - 'A' in Chinese
+            sr=re.sub(ch, chr(65+ord(ch)-65313), sr) # 65 - 'A', 65313 - 'A' in Chinese
             flag=True
     for ch in chnalplower:
         if ch in sr:
-            sr=re.sub(ch, unichr(97+ord(ch)-65345), sr) # a
+            sr=re.sub(ch, chr(97+ord(ch)-65345), sr) # a
             flag=True
     for ch in chnnumber:
         if ch in sr:
-            sr=re.sub(ch, unichr(48+ord(ch)-65296), sr) # 0
+            sr=re.sub(ch, chr(48+ord(ch)-65296), sr) # 0
             flag=True
     if u'\ufe6a' in sr:
         sr=re.sub(u'\ufe6a', u'%', sr)
@@ -371,7 +371,7 @@ def removeNonChinese(sr):
 
 ### new added part
 
-def  procEnd(sr):
+def procEnd(sr):
     if u'\u0021' in sr:     #translation '！' from english into chinese
         sr=re.sub(u'\u0021', u'\uFF01', sr)
     if u'\u003F' in sr:     #translation '！' from english in chinese
@@ -484,4 +484,3 @@ def textnorm(unproc=''):
     # sents = [procEnd(st) for st in sents]
     sents = detectEmpty(sents)
     return sents
-
