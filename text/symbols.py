@@ -7,8 +7,8 @@ through Unidecode. For other data, you can modify _characters. See TRAINING_DATA
 import os
 from text import cmudict
 
-_pad        = '_'
-_eos        = '~'
+_pad = '_'
+_eos = '~'
 _characters = 'abcdefghijklmnopqrstuvwxyz12345/,.!?# '
 
 # Prepend "@" to ARPAbet symbols to ensure uniqueness (some are the same as uppercase letters):
