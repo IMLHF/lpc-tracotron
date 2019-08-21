@@ -120,7 +120,7 @@ class Tacotron():
     def add_loss(self):
         '''Adds loss to the model. Sets "loss" field. initialize must have been called.'''
         with tf.variable_scope('loss'):
-            hp = self._hparams
+            # hp = self._hparams
             self.lpc_loss = tf.reduce_mean(
                 tf.abs(self.lpc_targets - self.lpc_outputs))
             self.stop_token_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(
@@ -141,7 +141,7 @@ class Tacotron():
         Args:
           global_step: int32 scalar Tensor representing current global step in training
         '''
-        with tf.variable_scope('optimizer') as scope:
+        with tf.variable_scope('optimizer'):
             hp = self._hparams
             if hp.decay_learning_rate:
                 self.learning_rate = _learning_rate_decay(
