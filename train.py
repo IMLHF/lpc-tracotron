@@ -44,8 +44,11 @@ def time_string():
 def train(log_dir, args):
     commit = get_git_commit() if args.git else 'None'
     checkpoint_path = os.path.join(log_dir, 'model.ckpt')
-    args.base_dir = './'
-    input_path = os.path.join(args.base_dir, args.input)
+    DATA_PATH = {
+        'bznsyp': "BZNSYP", 
+        'ljspeech': "LJSpeech-1.1"
+    }[args.dataset]
+    input_path = os.path.join(args.base_dir, 'DATA', DATA_PATH, 'training', 'train.txt')
     log('Checkpoint path: %s' % checkpoint_path)
     log('Loading training data from: %s' % input_path)
     log('Using model: %s' % args.model)
@@ -160,7 +163,8 @@ def train(log_dir, args):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--base_dir', default=os.path.expanduser('.'))
-    parser.add_argument('--input', default='training/train.txt')
+    parser.add_argument('--dataset', default='bznsyp',
+                        choices=['bznsyp', 'ljspeech'])
     parser.add_argument('--model', default='tacotron')
     parser.add_argument(
         '--name', help='Name of the run. Used for logging. Defaults to model name.')
