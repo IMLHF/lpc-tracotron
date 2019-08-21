@@ -1,6 +1,0 @@
-[submodule "textnorm"]
-	path = textnorm
-	url = git@120.131.1.206:tts/textnorm.git
-[submodule "submodules/textnorm"]
-	path = submodules/textnorm
-	url = git@120.131.1.206:tts/textnorm.git
