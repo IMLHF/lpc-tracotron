@@ -3,5 +3,5 @@ __pycache__
 *.npy
 .vscode
 logs-tacotron
-/LJSpeech-1.1/meta*
-/pretrained
+/_*
+
