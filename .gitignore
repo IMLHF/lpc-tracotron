@@ -4,4 +4,5 @@ __pycache__
 .vscode
 logs-tacotron
 /_*
+toserver.sh
 
