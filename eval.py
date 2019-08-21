@@ -58,6 +58,7 @@ def run_eval(args):
 
 
 def main():
+    os.environ['CUDA_VISIBLE_DEVICES']= ''
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', required=True,
                         help='Path to model checkpoint')
