@@ -73,7 +73,7 @@ def train(log_dir, args):
     step = 0
     time_window = ValueWindow(100)
     loss_window = ValueWindow(100)
-    saver = tf.train.Saver(max_to_keep=5, keep_checkpoint_every_n_hours=2)
+    saver = tf.train.Saver(max_to_keep=30, keep_checkpoint_every_n_hours=2)
 
     # Train!
     config = tf.ConfigProto()
