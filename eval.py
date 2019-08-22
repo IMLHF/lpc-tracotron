@@ -7,8 +7,11 @@ from textnorm import get_pinyin
 from functools import partial
 from hparams import hparams, hparams_debug_string
 from synthesizer import Synthesizer
+import pypinyin
 
 
+# print(pypinyin.pinyin("外孙",style='nonstd'))
+# exit(0)
 sentences = [
     '美国主持人听到“中国”就插话',
     '勉励乡亲们为过上更加幸福美好的生活继续团结奋斗。',
@@ -31,22 +34,22 @@ sentences = [
     '此次台湾地震发生后,许多网友为同胞祈福,愿平安,'
 ]
 
-# text2pinyin = partial(get_pinyin, std=False, pb=True)
+# text2pinyin = partial(get_pinyin, std=True, pb=True)
 # sentences = [' '.join(text2pinyin(sent)) for sent in sentences]
 # for sent in sentences:
 #     sent = sent.replace("/", "#1")
-#     sent = sent.replace(", ", " #2")
-#     sent = sent.replace(". ", " #3")
+#     sent = sent.replace(",", "#2")
+#     sent = sent.replace(".", "#3")
 #     sent += " #4"
 #     print(sent)
 
-# sentences = [
-#         "ka3 er3 pu3 #2 pei2 wai4 sun1 #1 wan2 hua2 ti1 #4",
-#         "jia3 yu3 cun1 yan2 #2 bie2 zai4 #1 yong1 bao4 wo3 #4",
-#         "bao3 ma3 #1 pei4 gua4 #1 bo3 luo2 an1 #3, diao1 chan2 #1 yuan4 zhen3 #2 dong3 weng1 ta4 #4",
-#         "deng4 xiao3 ping2 #2 yu3 #1 sa1 qie4 er3 #2 hui4 wu4 #4",
-#         "lao3 hu3 #1 you4 zai3 #2 yu3 #1 chong3 wu4 quan3 #1 wan2 shua3 #4",
-#         ]
+sentences = [
+        "ka3 er3 pu3 #2 pei2 wai4 sun1 #1 wan2 hua2 ti1 #4",
+        "jia3 yu3 cun1 yan2 #2 bie2 zai4 #1 yong1 bao4 wo3 #4",
+        "bao3 ma3 #1 pei4 gua4 #1 bo3 luo2 an1 #3, diao1 chan2 #1 yuan4 zhen3 #2 dong3 weng1 ta4 #4",
+        "deng4 xiao3 ping2 #2 yu3 #1 sa1 qie4 er3 #2 hui4 wu4 #4",
+        "lao3 hu3 #1 you4 zai3 #2 yu3 #1 chong3 wu4 quan3 #1 wan2 shua3 #4",
+        ]
 print(sentences)
 
 
