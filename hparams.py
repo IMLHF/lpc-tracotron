@@ -8,6 +8,10 @@ hparams = tf.contrib.training.HParams(
   cleaners='basic_cleaners',
 
   # Audio:
+  mmse_denoise_by_bothEndOfAudio=True, # set False if not understand, True for aishell
+  length_as_noise=0.3, # ms, 0.3 for aishell, 0.1 for BZNSYP
+  trim_top_db=30, # 30 for aishell, 60 for BZNSYP
+
   nb_lpc_features=55,
   num_lpcs=20,
   dump_data_path='bin/dump_data',

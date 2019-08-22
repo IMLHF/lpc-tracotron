@@ -4,6 +4,8 @@ import numpy as np
 import os
 from util import audio
 import lpcnet
+from util import logmmse
+from hparams import hparams
 
 
 def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x, metadata_name='metadata.csv'):
@@ -53,12 +55,21 @@ def _process_utterance(out_dir, index, wav_path, text):
 
     # Load the audio to a numpy array:
     wav = audio.load_wav(wav_path)
+    wav = wav / np.max(np.abs(wav)) * 0.9 # norm
+
+    # denoise
+    if hparams.mmse_denoise_by_bothEndOfAudio and len(wav) > hparams.sample_rate*(hparams.length_as_noise*2+0.1):
+      noise_wav = np.concatenate([wav[:int(hparams.sample_rate*hparams.length_as_noise)],
+                                  wav[-int(hparams.sample_rate*hparams.length_as_noise):]])
+      profile = logmmse.profile_noise(noise_wav, hparams.sample_rate)
+      wav = logmmse.denoise(wav, profile, eta=0)
 
     # trim silence
-    wav = audio.trim_silence(wav)
+    wav = audio.trim_silence(wav, hparams.trim_top_db) # top_db=30 for aishell, 60 for BZNSYP
+    # audio.save_wav(wav, wav_path.replace(".wav", "_trimed.wav"))
 
     # convert wav to 16bit int
-    wav = wav / np.max(np.abs(wav)) * 32768 * 0.9
+    wav *= 32768
     wav = wav.astype(np.int16)
 
     # extract LPC feature
