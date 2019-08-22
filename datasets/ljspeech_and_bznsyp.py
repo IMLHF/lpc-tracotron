@@ -54,6 +54,9 @@ def _process_utterance(out_dir, index, wav_path, text):
     # Load the audio to a numpy array:
     wav = audio.load_wav(wav_path)
 
+    # trim silence
+    wav = audio.trim_silence(wav)
+
     # convert wav to 16bit int
     wav = wav / np.max(np.abs(wav)) * 32768 * 0.9
     wav = wav.astype(np.int16)

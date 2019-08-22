@@ -58,6 +58,9 @@ def _process_utterance(out_dir, index, wav_path, pinyin):
   # Load the audio to a numpy array:
   wav = audio.load_wav(wav_path)
 
+  # trim silence
+  wav = audio.trim_silence(wav)
+
   # Compute the linear-scale spectrogram from the wav:
   spectrogram = audio.spectrogram(wav).astype(np.float32)
   n_frames = spectrogram.shape[1]
