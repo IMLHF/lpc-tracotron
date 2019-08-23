@@ -10,7 +10,8 @@ from synthesizer import Synthesizer
 import pypinyin
 
 
-# print(pypinyin.pinyin("外孙",style='nonstd'))
+# print(pypinyin.pinyin("06月04日17#1时46分在台湾#2台东县#3海域（北纬22.82度，东经121.75度）发生5.8级地震", style=pypinyin.Style.TONE3))
+# # print((get_pinyin("06月04日17时46分在台湾台东县海域（北纬22.82度，东经121.75度）发生5.8级地震")))
 # exit(0)
 sentences = [
     '美国主持人听到“中国”就插话',
@@ -23,7 +24,7 @@ sentences = [
     '我国森林面积、森林蓄积分别增长一倍左右，人工林面积居全球第一',
     '打打打打打打打打打打打',
     '卡尔普陪外孙玩滑梯。',
-    '假语村言别再拥抱我。',
+    '假语村言，别再拥抱我。',
     '宝马配挂跛骡鞍，貂蝉怨枕董翁榻。',
     '中国地震台网速报,'
     '中国地震台网正式测定,',
@@ -31,30 +32,23 @@ sentences = [
     '中国地震台网速报，中国地震台网正式测定：06月04日17时46分在台湾台东县海域（北纬22.82度，东经121.75度）发生5.8级地震',
     '震源深度9千米，震中位于海中，距台湾岛最近约47公里。',
     '刚刚,台湾发生5.8级地震,与此同时,泉州厦门漳州震感明显,',
-    '此次台湾地震发生后,许多网友为同胞祈福,愿平安,'
+    '此次台湾地震发生后,许多网友为同胞祈福,愿平安,',
+    '请帮我显示中央一套', # aishell IC0896W0001.wav
+    '确定下载三地狂野飙车', # aishell IC0896W0002.wav
+    '请帮我开启深圳卫视国际频道', # aishell IC0896W0003.wav
 ]
 
-# text2pinyin = partial(get_pinyin, std=True, pb=True)
-# sentences = [' '.join(text2pinyin(sent)) for sent in sentences]
-# for sent in sentences:
-#     sent = sent.replace("/", "#1")
-#     sent = sent.replace(",", "#2")
-#     sent = sent.replace(".", "#3")
-#     sent += " #4"
-#     print(sent)
+text2pinyin = partial(get_pinyin, std=True, pb=True)
+sentences = [' '.join(text2pinyin(sent)) for sent in sentences]
 
-sentences = [
-        "ka3 er3 pu3 #2 pei2 wai4 sun1 #1 wan2 hua2 ti1 #4",
-        "jia3 yu3 cun1 yan2 #2 bie2 zai4 #1 yong1 bao4 wo3 #4",
-        "bao3 ma3 #1 pei4 gua4 #1 bo3 luo2 an1 #3, diao1 chan2 #1 yuan4 zhen3 #2 dong3 weng1 ta4 #4",
-        "deng4 xiao3 ping2 #2 yu3 #1 sa1 qie4 er3 #2 hui4 wu4 #4",
-        "lao3 hu3 #1 you4 zai3 #2 yu3 #1 chong3 wu4 quan3 #1 wan2 shua3 #4",
-        ]
 print(sentences)
 
 
 def get_output_base_path(checkpoint_path):
     base_dir = os.path.dirname(checkpoint_path)
+    base_dir = os.path.join(base_dir, "eval_result")
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
     m = re.compile(r'.*?\.ckpt\-([0-9]+)').match(checkpoint_path)
     name = 'eval-%d' % int(m.group(1)) if m else 'eval'
     return os.path.join(base_dir, name)
@@ -77,7 +71,8 @@ def run_eval(args):
 def main():
     os.environ['CUDA_VISIBLE_DEVICES']= ''
     parser = argparse.ArgumentParser()
-    parser.add_argument('--checkpoint', required=True,
+    parser.add_argument('checkpoint', 
+                        # required=True,
                         help='Path to model checkpoint')
     parser.add_argument('--hparams', default='',
                         help='Hyperparameter overrides as a comma-separated list of name=value pairs')

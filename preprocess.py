@@ -2,7 +2,7 @@ import argparse
 import os
 from multiprocessing import cpu_count
 from tqdm import tqdm
-from datasets import ljspeech
+from datasets import ljspeech, bznsyp
 from hparams import hparams
 
 
@@ -14,13 +14,13 @@ def preprocess_ljspeech(args):
         in_dir, out_dir, args.num_workers, tqdm=tqdm)
     write_metadata(metadata, out_dir)
 
-# def preprocess_biaobei_10000sentences(args):
-#     in_dir = os.path.join(args.base_dir, 'DATA', 'BZNSYP')
-#     out_dir = os.path.join(args.base_dir, 'DATA', 'BZNSYP', args.output)
-#     os.makedirs(out_dir, exist_ok=True)
-#     metadata = ljspeech_and_bznsyp.build_from_path(
-#         in_dir, out_dir, args.num_workers, tqdm=tqdm)
-#     write_metadata(metadata, out_dir)
+def preprocess_biaobei_10000sentences(args):
+    in_dir = os.path.join(args.base_dir, 'DATA', 'BZNSYP')
+    out_dir = os.path.join(args.base_dir, 'DATA', 'BZNSYP', args.output)
+    os.makedirs(out_dir, exist_ok=True)
+    metadata = bznsyp.build_from_path(
+        in_dir, out_dir, args.num_workers, tqdm=tqdm)
+    write_metadata(metadata, out_dir)
 
 
 def write_metadata(metadata, out_dir):
@@ -47,7 +47,7 @@ def main():
     args = parser.parse_args()
 
     preprocess_fn = {
-        # 'bznsyp': preprocess_biaobei_10000sentences,
+        'bznsyp': preprocess_biaobei_10000sentences,
         'ljspeech': preprocess_ljspeech
     }[args.dataset]
 
