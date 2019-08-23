@@ -33,9 +33,9 @@ def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
     with open(os.path.join(in_dir, prosodylabeling_f), encoding='utf-8') as f:
         for i, line in enumerate(f):
             if i % 2 != 0:
-                pass
+                continue
             parts = line.strip().split()
-            wav_path = os.path.join(in_dir, 'wavs', parts[0])
+            wav_path = os.path.join(in_dir, 'Wave', parts[0]+".wav")
             text = parts[1]
             futures.append(executor.submit(
                 partial(_process_utterance, out_dir, index, wav_path, text)))
