@@ -10,7 +10,7 @@ from textnorm import get_pinyin
 
 
 def build_from_path(in_dir, out_dir, num_workers=1, tqdm=lambda x: x):
-    '''Preprocesses the BZNSYP (Chinese Standard Mandarin Speech Copus | 10000 Sentences) dataset from 
+    '''Preprocesses the BZNSYP (Chinese Standard Mandarin Speech Copus | 10000 Sentences) dataset from
        a given input path into a given output directory.
        dataset: https://www.data-baker.com/open_source.html
 
