@@ -45,7 +45,7 @@ def train(log_dir, args):
     commit = get_git_commit() if args.git else 'None'
     checkpoint_path = os.path.join(log_dir, 'model.ckpt')
     DATA_PATH = {
-        'bznsyp': "BZNSYP", 
+        'bznsyp': "BZNSYP",
         'ljspeech': "LJSpeech-1.1"
     }[args.dataset]
     input_path = os.path.join(args.base_dir, 'DATA', DATA_PATH, 'training', 'train.txt')
@@ -73,7 +73,7 @@ def train(log_dir, args):
     step = 0
     time_window = ValueWindow(100)
     loss_window = ValueWindow(100)
-    saver = tf.train.Saver(max_to_keep=50, keep_checkpoint_every_n_hours=2)
+    saver = tf.train.Saver(max_to_keep=999, keep_checkpoint_every_n_hours=2)
 
     # Train!
     config = tf.ConfigProto()
