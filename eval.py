@@ -36,6 +36,9 @@ sentences = [
     '请帮我显示中央一套', # aishell IC0896W0001.wav
     '确定下载三地狂野飙车', # aishell IC0896W0002.wav
     '请帮我开启深圳卫视国际频道', # aishell IC0896W0003.wav
+    '您吃饭了吗',
+    '您吃饭了吗？',
+    '你多大了',
 ]
 
 text2pinyin = partial(get_pinyin, std=True, pb=True)
@@ -60,7 +63,7 @@ def run_eval(args):
     synth.load(args.checkpoint)
     base_path = get_output_base_path(args.checkpoint)
     for i, text in enumerate(sentences):
-        path = '%s-%d.wav' % (base_path, i)
+        path = '%s-%03d.wav' % (base_path, i)
         print(' ')
         print('[{:<10}]: {}'.format('processing', path))
         wav, feature = synth.synthesize(text)
@@ -71,7 +74,7 @@ def run_eval(args):
 def main():
     os.environ['CUDA_VISIBLE_DEVICES']= ''
     parser = argparse.ArgumentParser()
-    parser.add_argument('checkpoint', 
+    parser.add_argument('checkpoint',
                         # required=True,
                         help='Path to model checkpoint')
     parser.add_argument('--hparams', default='',
