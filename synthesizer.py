@@ -34,8 +34,10 @@ class Synthesizer:
         }
 
         toc = time.time()
-        features = self.session.run(self.model.lpc_outputs, feed_dict=feed_dict)
+        features, stop_tokens = self.session.run([self.model.lpc_outputs, self.model.stop_token_outputs],
+                                                 feed_dict=feed_dict)
         print('[{:<10}]: generating lpc feature escaped '.format('tacotron'), time.time() - toc)
+        # print(stop_tokens[0])
 
         toc = time.time()
         feature = features[0]
