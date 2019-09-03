@@ -97,6 +97,7 @@ class DataFeeder(threading.Thread):
         log('Generated %d batches of size %d in %.03f sec' %
             (len(batches), n, time.time() - start))
         for batch in batches:
+            # sample in batch> x[0]: input_fea, x[1]: lpc_target, x[2]: stop_token_target, x[3]: lpc_target_len.
             feed_dict = dict(zip(self._placeholders, _prepare_batch(batch, r)))
             self._session.run(self._enqueue_op, feed_dict=feed_dict)
 
@@ -125,6 +126,7 @@ class DataFeeder(threading.Thread):
 
 
 def _prepare_batch(batch, outputs_per_step):
+    # x[0]: input_fea, x[1]: lpc_target(time, 20), x[2]: stop_token_target, x[3]: lpc_target_len.
     random.shuffle(batch)
     inputs = _prepare_inputs([x[0] for x in batch])
     input_lengths = np.asarray([len(x[0]) for x in batch], dtype=np.int32)
